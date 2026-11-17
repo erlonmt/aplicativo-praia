@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protótipo Aplicativo Praia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: painel de telas à esquerda + aparelho ao centro; no celular o app ocupa a tela toda */
+  --sea:#0B5F73;
+  --sea-deep:#0A3442;
+  --foam:#EAF4F3;
+  --sand:#F4E7CD;
+  --sun:#F4A62A;
+  --ink:#143643;
+  --muted:#5D7983;
+  --line:#D2E2E4;
+  --card:#FFFFFF;
+  --ok:#1E9967;
+  --off:#93A5AC;
+  --danger:#B93D2A;
+  --display:'Poppins', 'Segoe UI', Arial, sans-serif;
+  --body:'Poppins', 'Segoe UI', Arial, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#DCE9EA;color:var(--ink);font-family:var(--body);font-size:15px;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+.stage{min-height:100%;display:flex;gap:40px;justify-content:center;align-items:center;padding:28px 24px}
+
+/* Painel de revisão */
+.panel{width:300px;flex:none;align-self:stretch;max-height:880px;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px}
+.panel h1{font-family:var(--display);font-size:17px;margin:0 0 2px;text-wrap:balance}
+.panel .sub{color:var(--muted);font-size:12.5px;margin:0 0 16px}
+.panel h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+.navlist{display:flex;flex-direction:column;gap:2px;list-style:none;margin:0;padding:0}
+.navlist button{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;border-radius:10px;padding:7px 8px;text-align:left;font-size:14px}
+.navlist button:hover{background:var(--foam)}
+.navlist button[aria-current="true"]{background:var(--sea);color:#fff}
+.navlist button[aria-current="true"] .code{background:rgba(255,255,255,.18);color:#fff}
+.code{font:700 11px/1 var(--body);background:var(--foam);color:var(--sea);border-radius:6px;padding:4px 6px;min-width:40px;text-align:center;font-variant-numeric:tabular-nums}
+.code.pend{background:#FBEFD8;color:#8A5A0E}
+.tips{background:var(--foam);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
+.tips p{margin:0 0 6px}.tips p:last-child{margin:0}
+.tips b{font-variant-numeric:tabular-nums}
+.ghost{width:100%;margin-top:10px;background:none;border:1.5px solid var(--sea);color:var(--sea);border-radius:10px;padding:8px;font-weight:700;font-size:13.5px}
+
+/* Aparelho */
+.device{width:392px;height:min(820px, calc(100vh - 40px));flex:none;border-radius:46px;background:#0D2A34;padding:12px;box-shadow:0 30px 60px -20px rgba(10,52,66,.45)}
+.app{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:var(--foam);display:flex;flex-direction:column}
+.statusbar{height:34px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:700 13px var(--body);font-variant-numeric:tabular-nums}
+.protobar{display:none}
+
+/* Telas */
+.screen{display:none;flex:1;min-height:0;flex-direction:column}
+.screen.active{display:flex}
+.scroll{flex:1;min-height:0;overflow-y:auto;padding:8px 22px 24px}
+.topnav{display:flex;align-items:center;gap:8px;padding:4px 14px 0;height:48px;flex:none}
+.back{width:40px;height:40px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center}
+.back:hover{background:rgba(11,95,115,.08)}
+.topnav .ttl{font:600 16px var(--display)}
+h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 20px;line-height:1.5}
+
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-weight:700;font-size:13.5px}
+.inp{position:relative}
+.inp input{width:100%;height:48px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:0 14px;font-size:15px}
+.inp input:focus{border-color:var(--sea);outline:none;box-shadow:0 0 0 3px rgba(11,95,115,.15)}
+.field.err input{border-color:var(--danger)}
+.msg{font-size:12.5px;color:var(--danger);min-height:0}
+.field:not(.err) .msg{display:none}
+.eye{position:absolute;right:6px;top:6px;height:36px;padding:0 10px;border:0;background:none;color:var(--sea);font-weight:700;font-size:13px;border-radius:8px}
+.code-inp input{letter-spacing:.5em;font:700 22px var(--display);text-align:center;font-variant-numeric:tabular-nums}
+
+.btn{width:100%;height:50px;border-radius:14px;border:0;font-weight:800;font-size:15.5px;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn.primary{background:var(--sea);color:#fff}
+.btn.primary:hover{background:#09505F}
+.btn.secondary{background:var(--card);color:var(--sea);border:1.5px solid var(--sea)}
+.btn.social{background:var(--card);border:1.5px solid var(--line);color:var(--ink);font-weight:700}
+.btn.danger{background:var(--danger);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.stack{display:flex;flex-direction:column;gap:10px}
+.letter{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:800 13px var(--body);color:#fff}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12.5px;margin:18px 0 12px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.link{background:none;border:0;padding:4px 2px;color:var(--sea);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.center{text-align:center;margin-top:16px;color:var(--muted);font-size:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 18px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.4}
+.check input{width:20px;height:20px;margin:0;accent-color:var(--sea);flex:none}
+.check.err span{color:var(--danger)}
+.alert{border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.45;margin-bottom:14px}
+.alert.error{background:#FBE7E3;color:#7F2A1C}
+.alert.info{background:#E0EFF2;color:var(--sea-deep)}
+.alert.success{background:#DDF3E9;color:#13603F}
+.alert[hidden]{display:none}
+
+/* Boas-vindas */
+.welcome{background:linear-gradient(180deg,#BFE3E3 0%,var(--foam) 58%)}
+.welcome .art{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center}
+.welcome .art svg{width:100%;height:auto;max-height:100%}
+.welcome .bottom{padding:6px 24px 30px;background:var(--foam)}
+.brand{font:700 13px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--sea)}
+.welcome h2.h{font-size:30px}
+
+/* Home */
+.homehead{display:flex;align-items:center;justify-content:space-between;padding:6px 22px 4px;flex:none}
+.hello{font:600 21px var(--display);margin:0}
+.hello small{display:block;font:600 13px var(--body);color:var(--muted);margin-bottom:2px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--sand);display:grid;place-items:center;font:700 15px var(--display);color:var(--sea-deep)}
+.status{border-radius:20px;padding:18px;margin-top:14px;color:#fff;transition:background .25s}
+.status.on{background:var(--ok)}
+.status.off{background:#5D747C}
+.status .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);border-radius:999px;padding:5px 12px 5px 9px;font-weight:800;font-size:13px}
+.pill i{width:9px;height:9px;border-radius:50%;background:#fff}
+.status.off .pill i{background:#C9D3D6}
+.status .big{font:700 26px var(--display);margin:14px 0 2px}
+.status .desc{margin:0;font-size:14px;line-height:1.45;opacity:.95}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-top:12px}
+.switchrow label{font-weight:700;font-size:14.5px;line-height:1.35}
+.switch{width:56px;height:32px;border-radius:999px;border:0;background:var(--off);position:relative;flex:none;transition:background .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.switch[aria-checked="true"]{background:var(--ok)}
+.switch[aria-checked="true"]::after{transform:translateX(24px)}
+.action{width:100%;margin-top:14px;display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left}
+.action:hover{border-color:var(--sea)}
+.action .ic{width:46px;height:46px;border-radius:14px;background:var(--sand);display:grid;place-items:center;flex:none}
+.action b{display:block;font-size:15.5px}
+.action b{color:var(--ink)}
+.action .s2{display:block;color:var(--muted);font-size:13px}
+.action .chev{margin-left:auto;color:var(--muted)}
+
+.tabbar[hidden]{display:none}
+.tabbar{flex:none;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding:6px 6px 14px}
+.tabbar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;font-size:11.5px;font-weight:700;color:var(--muted);border-radius:12px}
+.tabbar button[aria-current="page"]{color:var(--sea)}
+.tabbar button[aria-current="page"] svg{background:#D7ECEE;border-radius:10px}
+.tabbar svg{width:44px;height:28px;padding:3px 10px}
+
+.placeholder{border:2px dashed #E3C98E;background:#FFF9EC;border-radius:16px;padding:18px;color:#6E4A0C;font-size:14px;line-height:1.5}
+.placeholder b{display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.heat{margin-top:14px;height:240px;border-radius:16px;position:relative;overflow:hidden;background:linear-gradient(180deg,#9FD3DA 0 34%,#EAD7AE 34% 100%)}
+.heat span{position:absolute;border-radius:50%;filter:blur(14px);opacity:.75}
+.heat em{position:absolute;bottom:8px;right:10px;font-style:normal;font-size:11.5px;font-weight:700;color:#6E4A0C;background:rgba(255,255,255,.75);padding:2px 8px;border-radius:6px}
+.profile{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0 14px}
+.profile .avatar{width:54px;height:54px;font-size:19px}
+.profile b{display:block;font-size:16px}.profile span{color:var(--muted);font-size:13.5px}
+.exit{width:100%;display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;color:var(--danger);font-weight:800;font-size:15px;margin-top:14px}
+
+/* Camadas: modal, folha, toast */
+.overlay{position:absolute;inset:0;background:rgba(10,40,50,.45);display:none;align-items:flex-end;z-index:20}
+.overlay.open{display:flex}
+.overlay.mid{align-items:center;justify-content:center;padding:24px}
+.sheet{width:100%;background:var(--card);border-radius:24px 24px 0 0;padding:10px 22px 26px;animation:up .22s ease-out}
+.dialog{width:100%;background:var(--card);border-radius:22px;padding:22px}
+@keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 10px}
+.sheet h3,.dialog h3{font:700 20px/1.25 var(--display);margin:4px 0 8px;text-wrap:balance}
+.sheet p,.dialog p{color:var(--muted);margin:0 0 18px;line-height:1.5;font-size:14.5px}
+.x{float:right;width:36px;height:36px;border-radius:50%;border:0;background:var(--foam);font-size:18px;line-height:1}
+.toast{position:absolute;left:16px;right:16px;bottom:96px;z-index:30;background:var(--sea-deep);color:#fff;border-radius:14px;padding:12px 14px;font-weight:700;font-size:14px;box-shadow:0 10px 24px -8px rgba(0,0,0,.4);transform:translateY(12px);opacity:0;pointer-events:none;transition:.22s}
+.toast.show{transform:none;opacity:1}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Celular: app em tela cheia com barra fina do protótipo */
+@media (max-width: 760px){
+  body{background:var(--foam)}
+  .stage{display:block;padding:0;height:100%}
+  .panel{display:none}
+  .panel.open{display:block;position:fixed;inset:0;z-index:50;max-height:none;border-radius:0;border:0;padding:20px 20px 40px}
+  .device{width:100%;height:100%;border-radius:0;padding:0;box-shadow:none;background:var(--foam)}
+  .app{border-radius:0;height:100%}
+  .statusbar{display:none}
+  .protobar{display:flex;flex:none;align-items:center;justify-content:space-between;gap:10px;height:40px;padding:0 12px;background:var(--sea-deep);color:#fff;font-size:12.5px}
+  .protobar button{background:rgba(255,255,255,.14);border:0;color:#fff;font-weight:800;border-radius:8px;padding:6px 10px;font-size:12.5px}
+  .closepanel{display:block!important}
+}
+.closepanel{display:none;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <aside class="panel" id="panel" aria-label="Telas do protótipo">
+    <button class="ghost closepanel" id="closePanel">Voltar ao protótipo</button>
+    <h1>Aplicativo Praia</h1>
+    <p class="sub">Protótipo navegável conforme a especificação v1.1</p>
+
+    <h2>Acesso</h2>
+    <ul class="navlist" data-group>
+      <li><button data-go="r01"><span class="code">R01</span>Boas-vindas</button></li>
+      <li><button data-go="r02"><span class="code">R02</span>Cadastro</button></li>
+      <li><button data-go="r03"><span class="code">R03</span>Login</button></li>
+      <li><button data-go="r04"><span class="code">R04</span>Recuperar senha</button></li>
+      <li><button data-go="r07"><span class="code">R07</span>Código e nova senha</button></li>
+    </ul>
+    <h2>Área autenticada</h2>
+    <ul class="navlist">
+      <li><button data-go="r06"><span class="code">R06</span>Tela inicial</button></li>
+      <li><button data-go="produtos"><span class="code pend">P03</span>Cadastrar produtos</button></li>
+      <li><button data-go="pedidos"><span class="code pend">P03</span>Pedidos</button></li>
+      <li><button data-go="mapa"><span class="code pend">P04</span>Mapa de calor</button></li>
+      <li><button data-go="perfil"><span class="code pend">P03</span>Perfil</button></li>
+      <li><button data-go="r05"><span class="code">R05</span>Logoff (sair)</button></li>
+    </ul>
+
+    <h2>Dados para teste</h2>
+    <div class="tips">
+      <p>Conta existente: <b>cliente@praia.com</b> / senha <b>praia123</b>. Contas criadas no cadastro também entram.</p>
+      <p>No cadastro, o e-mail <b>cliente@praia.com</b> mostra o aviso de conta já existente.</p>
+      <p>Código do SMS: <b>123456</b>. Três códigos errados bloqueiam a tentativa.</p>
+      <p>Telas em amarelo ainda não têm requisitos e aparecem como provisórias.</p>
+    </div>
+    <button class="ghost" id="reopen">Fechar e reabrir o app</button>
+  </aside>
+
+  <div class="device">
+    <div class="app" id="app">
+      <div class="protobar"><span id="pbLabel">R01 · Boas-vindas</span><button id="openPanel">Telas</button></div>
+      <div class="statusbar" aria-hidden="true"><span>9:41</span><svg width="62" height="12" viewBox="0 0 62 12" fill="#143643"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><rect x="34" y="0.5" width="23" height="11" rx="3" fill="none" stroke="#143643" stroke-width="1.2"/><rect x="36" y="2.5" width="16" height="7" rx="1.5"/><rect x="58.5" y="4" width="2" height="4" rx="1"/></svg></div>
+
+      <!-- R01 -->
+      <section class="screen welcome" data-id="r01" data-label="R01 · Boas-vindas">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 368 300" preserveAspectRatio="xMidYMax meet">
+            <circle cx="268" cy="96" r="44" fill="#F4A62A"/>
+            <circle cx="268" cy="96" r="62" fill="#F4A62A" opacity=".18"/>
+            <path d="M0 176 C60 160 110 190 184 176 S300 158 368 172 V300 H0Z" fill="#5FB3BE"/>
+            <path d="M0 200 C70 186 120 214 190 200 S310 182 368 198 V300 H0Z" fill="#2B8C9C"/>
+            <path d="M0 236 C80 220 150 250 220 236 S320 220 368 232 V300 H0Z" fill="#F4E7CD"/>
+            <path d="M72 250 l26 -70" stroke="#143643" stroke-width="3" stroke-linecap="round"/>
+            <path d="M40 186 Q98 140 156 176 Z" fill="#B93D2A"/>
+            <path d="M40 186 Q70 168 98 180 Q126 166 156 176 Q98 140 40 186Z" fill="#fff" opacity=".35"/>
+          </svg>
+        </div>
+        <div class="bottom">
+          <div class="brand">Aplicativo Praia</div>
+          <h2 class="h">Olá! Que bom ter você por aqui.</h2>
+          <p class="lead">Crie sua conta ou entre com a que você já tem para continuar.</p>
+          <div class="stack">
+            <button class="btn primary" data-go="r02">Novo cadastro</button>
+            <button class="btn secondary" data-go="r03">Já sou cliente</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- R02 -->
+      <section class="screen" data-id="r02" data-label="R02 · Cadastro">
+        <div class="topnav"><button class="back" data-go="r01" aria-label="Voltar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+        <form class="scroll" id="fCad" novalidate>
+          <h2 class="h">Criar conta</h2>
+          <p class="lead">Preencha seus dados ou use uma conta social.</p>
+          <div class="alert error" id="cadAlert" hidden></div>
+          <div class="field" id="fNome"><label for="cNome">Nome completo</label><div class="inp"><input id="cNome" autocomplete="name" placeholder="Seu nome e sobrenome"></div><div class="msg">Informe nome e sobrenome.</div></div>
+          <div class="field" id="fEmail"><label for="cEmail">E-mail</label><div class="inp"><input id="cEmail" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div><div class="msg">Informe um e-mail válido.</div></div>
+          <div class="field" id="fTel"><label for="cTel">Telefone</label><div class="inp"><input id="cTel" inputmode="tel" autocomplete="tel" placeholder="(81) 99999-9999" data-mask="tel"></div><div class="msg">Informe o telefone com DDD.</div></div>
+          <div class="field" id="fSenha"><label for="cSenha">Senha</label><div class="inp"><input id="cSenha" type="password" autocomplete="new-password" placeholder="Crie uma senha"><button type="button" class="eye" data-eye="cSenha">Mostrar</button></div><div class="msg">Crie uma senha.</div></div>
+          <label class="check" id="fTermos"><input type="checkbox" id="cTermos"><span>Li e aceito os <button type="button" class="link" id="openTerms">Termos de Uso</button></span></label>
+          <div style="height:18px"></div>
+          <button class="btn primary" type="submit" id="btnCad">Cadastrar</button>
+          <div class="or">ou</div>
+          <div class="stack">
+            <button type="button" class="btn social" data-social="Google" data-from="cad"><span class="letter" style="background:#4A7FD8">G</span>Continuar com Google</button>
+            <button type="button" class="btn social" data-social="Facebook" data-from="cad"><span class="letter" style="background:#3B5BA5">f</span>Continuar com Facebook</button>
+          </div>
+          <p class="center">Já tem uma conta? <button type="button" class="link" data-go="r03">Já tenho uma conta</button></p>
+        </form>
+      </section>
+
+      <!-- R03 -->
+      <section class="screen" data-id="r03" data-label="R03 · Login">
+        <div class="topnav"><button class="back" data-go="r01" aria-label="Voltar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+        <form class="scroll" id="fLogin" novalidate>
+          <h2 class="h">Entrar</h2>
+          <p class="lead">Acesse sua conta para continuar.</p>
+          <div class="alert success" id="loginOk" hidden></div>
+          <div class="alert error" id="loginAlert" hidden></div>
+          <div class="field" id="fLEmail"><label for="lEmail">E-mail</label><div class="inp"><input id="lEmail" type="email" inputmode="email" autocomplete="username" placeholder="voce@email.com"></div><div class="msg">Informe um e-mail válido.</div></div>
+          <div class="field" id="fLSenha"><label for="lSenha">Senha</label><div class="inp"><input id="lSenha" type="password" autocomplete="current-password" placeholder="Sua senha"><button type="button" class="eye" data-eye="lSenha">Mostrar</button></div><div class="msg">Informe sua senha.</div></div>
+          <div class="row">
+            <label class="check"><input type="checkbox" id="lSalvar"><span>Salvar dados</span></label>
+            <button type="button" class="link" data-go="r04">Esqueceu a senha?</button>
+          </div>
+          <button class="btn primary" type="submit" id="btnLogin">Entrar</button>
+          <div class="or">ou</div>
+          <div class="stack">
+            <button type="button" class="btn social" data-social="Google" data-from="login"><span class="letter" style="background:#4A7FD8">G</span>Continuar com Google</button>
+            <button type="button" class="btn social" data-social="Facebook" data-from="login"><span class="letter" style="background:#3B5BA5">f</span>Continuar com Facebook</button>
+          </div>
+          <p class="center">Ainda não tem conta? <button type="button" class="link" data-go="r02">Criar conta</button></p>
+        </form>
+      </section>
+
+      <!-- R04 -->
+      <section class="screen" data-id="r04" data-label="R04 · Recuperar senha">
+        <div class="topnav"><button class="back" data-go="r03" aria-label="Voltar ao login"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+        <form class="scroll" id="fRec" novalidate>
+          <h2 class="h">Recuperar senha</h2>
+          <p class="lead">Informe o telefone cadastrado. Vamos enviar um código por SMS para confirmar que o número é seu.</p>
+          <div class="alert info" id="recInfo" hidden></div>
+          <div class="field" id="fRTel"><label for="rTel">Telefone com DDD</label><div class="inp"><input id="rTel" inputmode="tel" autocomplete="tel" placeholder="(81) 99999-9999" data-mask="tel"></div><div class="msg">Confira o número. Use o DDD e 8 ou 9 dígitos.</div></div>
+          <button class="btn primary" type="submit" id="btnRec">Enviar código</button>
+          <p class="center"><button type="button" class="link" data-go="r03">Voltar ao login</button></p>
+        </form>
+      </section>
+
+      <!-- R07 -->
+      <section class="screen" data-id="r07" data-label="R07 · Código e nova senha">
+        <div class="topnav"><button class="back" data-go="r04" aria-label="Voltar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+        <form class="scroll" id="fCode" novalidate>
+          <h2 class="h">Digite o código</h2>
+          <p class="lead">Enviamos um código de 6 dígitos para <b id="maskedTel">(81) •••••-1234</b>.</p>
+          <div class="alert error" id="codeAlert" hidden></div>
+          <div class="field code-inp" id="fCodigo"><label for="kCodigo">Código de verificação</label><div class="inp"><input id="kCodigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"></div><div class="msg">Digite os 6 números do código.</div></div>
+          <div class="field" id="fNova"><label for="kNova">Nova senha</label><div class="inp"><input id="kNova" type="password" autocomplete="new-password" placeholder="Crie uma nova senha"><button type="button" class="eye" data-eye="kNova">Mostrar</button></div><div class="msg">Crie uma nova senha.</div></div>
+          <div class="field" id="fConf"><label for="kConf">Confirmar nova senha</label><div class="inp"><input id="kConf" type="password" autocomplete="new-password" placeholder="Repita a nova senha"><button type="button" class="eye" data-eye="kConf">Mostrar</button></div><div class="msg">As senhas não são iguais.</div></div>
+          <button class="btn primary" type="submit" id="btnCode">Redefinir senha</button>
+          <p class="center" id="resendWrap">Não recebeu? <button type="button" class="link" id="resend" disabled>Reenviar código</button> <span id="countdown"></span></p>
+        </form>
+      </section>
+
+      <!-- R06 -->
+      <section class="screen" data-id="r06" data-label="R06 · Tela inicial">
+        <div class="homehead">
+          <p class="hello"><small>Bom dia</small><span id="helloName">Marina</span></p>
+          <div class="avatar" id="avatar1">MS</div>
+        </div>
+        <div class="scroll">
+          <div class="status off" id="statusCard">
+            <div class="top"><span class="pill"><i></i>Seu status agora</span></div>
+            <div class="big" id="statusBig">Indisponível</div>
+            <p class="desc" id="statusDesc">Você não está recebendo novas rotas e pedidos.</p>
+          </div>
+          <div class="switchrow">
+            <label for="avail" id="availLbl">Disponível para receber rotas e pedidos</label>
+            <button class="switch" id="avail" role="switch" aria-checked="false" aria-labelledby="availLbl"></button>
+          </div>
+          <div class="alert error" id="locAlert" hidden style="margin-top:12px"></div>
+          <button class="action" data-go="produtos">
+            <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0A3442" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+            <span><b>Cadastrar produtos</b><span class="s2">Adicione o que você oferece</span></span>
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Telas provisórias -->
+      <section class="screen" data-id="produtos" data-label="Cadastrar produtos (provisória)">
+        <div class="topnav"><button class="back" data-go="r06" aria-label="Voltar à tela inicial"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ttl">Cadastrar produtos</span></div>
+        <div class="scroll"><div class="placeholder"><b>Tela provisória</b>Os requisitos do cadastro de produtos ainda não foram documentados (pendência P03). Esta tela existe só para mostrar o caminho a partir da tela inicial.</div></div>
+      </section>
+      <section class="screen" data-id="pedidos" data-label="Pedidos (provisória)">
+        <div class="topnav" style="padding-left:22px"><span class="ttl">Pedidos</span></div>
+        <div class="scroll"><div class="placeholder"><b>Tela provisória</b>Os requisitos da tela de pedidos ainda não foram documentados (pendência P03).</div></div>
+      </section>
+      <section class="screen" data-id="mapa" data-label="Mapa de calor (provisória)">
+        <div class="topnav" style="padding-left:22px"><span class="ttl">Mapa de calor</span></div>
+        <div class="scroll">
+          <div class="placeholder"><b>Tela provisória</b>Ainda falta definir o que o mapa representa e de onde vêm os dados (pendência P04). A imagem abaixo é só ilustrativa.</div>
+          <div class="heat" aria-hidden="true">
+            <span style="left:30px;top:120px;width:120px;height:90px;background:#E8572F"></span>
+            <span style="left:170px;top:150px;width:90px;height:70px;background:#F4A62A"></span>
+            <span style="left:250px;top:100px;width:70px;height:60px;background:#F7D154"></span>
+            <em>Ilustrativo</em>
+          </div>
+        </div>
+      </section>
+      <section class="screen" data-id="perfil" data-label="Perfil (provisória)">
+        <div class="topnav" style="padding-left:22px"><span class="ttl">Perfil</span></div>
+        <div class="scroll">
+          <div class="profile"><div class="avatar" id="avatar2">MS</div><div><b id="profName">Marina Souza</b><span id="profMail">cliente@praia.com</span></div></div>
+          <div class="placeholder"><b>Tela provisória</b>Os demais itens do perfil ainda não foram documentados (pendência P03). A ação “Sair” segue a ficha R05.</div>
+          <button class="exit" id="btnSair"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Sair</button>
+        </div>
+      </section>
+
+      <!-- Menu inferior da área autenticada -->
+      <nav class="tabbar" id="tabbar" aria-label="Menu principal" hidden>
+        <button data-tab="pedidos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Pedidos</button>
+        <button data-tab="mapa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.5"/></svg>Mapa de calor</button>
+        <button data-tab="r06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Início</button>
+        <button data-tab="perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Perfil</button>
+      </nav>
+
+      <!-- R05: confirmação de saída -->
+      <div class="overlay" id="ovSair" role="dialog" aria-modal="true" aria-labelledby="sairT">
+        <div class="sheet">
+          <div class="grab"></div>
+          <button class="x" id="sairClose" aria-label="Fechar">×</button>
+          <h3 id="sairT">Deseja realmente sair do aplicativo?</h3>
+          <p>As duas opções encerram a sessão atual.</p>
+          <div class="stack">
+            <button class="btn danger" id="sairSim">Sim, sair</button>
+            <button class="btn secondary" id="sairOutro">Entrar com outro perfil</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permissão de localização (R06 FA01) -->
+      <div class="overlay mid" id="ovLoc" role="dialog" aria-modal="true" aria-labelledby="locT">
+        <div class="dialog">
+          <h3 id="locT">Permitir acesso à localização?</h3>
+          <p>A localização é necessária para você receber rotas e pedidos enquanto estiver disponível.</p>
+          <div class="stack">
+            <button class="btn primary" id="locYes">Permitir</button>
+            <button class="btn secondary" id="locNo">Não permitir</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autorização social simulada (R02 FA04 / R03 FA03) -->
+      <div class="overlay mid" id="ovSocial" role="dialog" aria-modal="true" aria-labelledby="socT">
+        <div class="dialog">
+          <h3 id="socT">Autorização do provedor</h3>
+          <p id="socP">Simulação: o provedor pede autorização para compartilhar seu nome e e-mail com o Aplicativo Praia.</p>
+          <div class="stack">
+            <button class="btn primary" id="socYes">Autorizar</button>
+            <button class="btn secondary" id="socNo">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Termos de Uso -->
+      <div class="overlay" id="ovTerms" role="dialog" aria-modal="true" aria-labelledby="termsT">
+        <div class="sheet">
+          <div class="grab"></div>
+          <button class="x" id="termsClose" aria-label="Fechar">×</button>
+          <h3 id="termsT">Termos de Uso</h3>
+          <p>O texto dos Termos de Uso será incluído aqui quando for fornecido.</p>
+          <button class="btn primary" id="termsOk">Li e aceito</button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const AUTH = ['r06','produtos','pedidos','mapa','perfil'];
+  const TABS = ['r06','pedidos','mapa','perfil'];
+  const state = {
+    users: { 'cliente@praia.com': { pass:'praia123', name:'Marina Souza', tel:'81998761234' } },
+    session: null, remember:false, available:false, locAllowed:null,
+    current:'r01', recTel:'', tries:0, timer:null
+  };
+
+  /* ---------- utilidades ---------- */
+  function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove('show'),2600); }
+  function err(fieldId, on){ $('#'+fieldId).classList.toggle('err', !!on); return !on; }
+  function show(id, text){ const el=$('#'+id); if(text){ el.textContent=text; el.hidden=false; } else { el.hidden=true; } }
+  const digits = v => v.replace(/\D/g,'');
+  const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+  function maskTel(v){ const d=digits(v).slice(0,11); if(d.length<=2) return d.length?'('+d:''; if(d.length<=6) return '('+d.slice(0,2)+') '+d.slice(2); if(d.length<=10) return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6); return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7); }
+  const validTel = v => { const n=digits(v).length; return n===10||n===11; };
+  function initials(n){ const p=n.trim().split(/\s+/); return ((p[0]||'')[0]||'').toUpperCase()+((p[p.length-1]||'')[0]||'').toUpperCase(); }
+  function busy(btn, on, label){ if(on){ btn._l=btn.innerHTML; btn.innerHTML='<span class="spin"></span>'; btn.disabled=true; } else { btn.innerHTML=btn._l||label; btn.disabled=false; } }
+
+  /* ---------- navegação ---------- */
+  function render(id){
+    if(!document.querySelector('.screen[data-id="'+id+'"]') && id!=='r05') id='r01';
+    if(id==='r05'){ ensureSession(); render(TABS.includes(state.current)?state.current:'r06'); openSair(); return; }
+    if(AUTH.includes(id)) ensureSession();
+    closeAll();
+    $$('.screen').forEach(s=>s.classList.toggle('active', s.dataset.id===id));
+    state.current=id;
+    const scr=document.querySelector('.screen[data-id="'+id+'"]');
+    $('#pbLabel').textContent=scr.dataset.label;
+    $('#tabbar').hidden = !TABS.includes(id);
+    $$('#tabbar button').forEach(b=>b.setAttribute('aria-current', b.dataset.tab===id?'page':'false'));
+    $$('.navlist button').forEach(b=>b.setAttribute('aria-current', b.dataset.go===id?'true':'false'));
+    const sc=scr.querySelector('.scroll'); if(sc) sc.scrollTop=0;
+    if(id!=='r03') show('loginOk');
+    if(id==='r07') startCountdown();
+  }
+  function go(id){ if(location.hash.slice(1)===id) render(id); else location.hash=id; }
+  window.addEventListener('hashchange',()=>render(location.hash.slice(1)||'r01'));
+
+  document.addEventListener('click',e=>{
+    const g=e.target.closest('[data-go]'); if(g){ e.preventDefault(); $('#panel').classList.remove('open'); go(g.dataset.go); return; }
+    const t=e.target.closest('[data-tab]'); if(t){ go(t.dataset.tab); return; }
+    const eye=e.target.closest('[data-eye]'); if(eye){ const i=$('#'+eye.dataset.eye); const vis=i.type==='password'; i.type=vis?'text':'password'; eye.textContent=vis?'Ocultar':'Mostrar'; }
+  });
+  $$('[data-mask="tel"]').forEach(i=>i.addEventListener('input',()=>{ i.value=maskTel(i.value); }));
+  $('#kCodigo').addEventListener('input',e=>{ e.target.value=digits(e.target.value).slice(0,6); });
+  $$('.field input').forEach(i=>i.addEventListener('input',()=>i.closest('.field').classList.remove('err')));
+  $('#cTermos').addEventListener('change',()=>$('#fTermos').classList.remove('err'));
+
+  function ensureSession(){ if(!state.session){ const u=state.users['cliente@praia.com']; startSession('cliente@praia.com', u.name); } }
+  function startSession(email, name){
+    state.session={email, name};
+    const first=name.split(' ')[0];
+    $('#helloName').textContent=first; $('#profName').textContent=name; $('#profMail').textContent=email;
+    $('#avatar1').textContent=$('#avatar2').textContent=initials(name);
+    const h=new Date().getHours(); $('.hello small').textContent = h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  }
+
+  /* ---------- R02 cadastro ---------- */
+  $('#fCad').addEventListener('submit',e=>{
+    e.preventDefault(); show('cadAlert');
+    const nome=$('#cNome').value.trim(), email=$('#cEmail').value.trim(), tel=$('#cTel').value, senha=$('#cSenha').value;
+    let ok = err('fNome', nome.split(/\s+/).filter(Boolean).length<2);
+    ok = err('fEmail', !validEmail(email)) && ok;
+    ok = err('fTel', !validTel(tel)) && ok;
+    ok = err('fSenha', !senha) && ok;
+    if(!ok){ show('cadAlert','Confira os campos destacados.'); return; }
+    if(!$('#cTermos').checked){ $('#fTermos').classList.add('err'); show('cadAlert','Para continuar, aceite os Termos de Uso.'); return; }
+    const btn=$('#btnCad'); busy(btn,true);
+    setTimeout(()=>{
+      busy(btn,false);
+      if(state.users[email.toLowerCase()]){
+        const a=$('#cadAlert'); a.innerHTML='Este e-mail já tem uma conta. <button type="button" class="link" id="toLogin">Ir para o login</button>'; a.hidden=false;
+        $('#toLogin').onclick=()=>{ $('#lEmail').value=email; go('r03'); };
+        $('#fEmail').classList.add('err'); return;
+      }
+      state.users[email.toLowerCase()]={pass:senha,name:nome,tel:digits(tel)};
+      startSession(email,nome); $('#fCad').reset(); state.available=false; paintStatus();
+      go('r06'); toast('Cadastro concluído. Bem-vindo(a)!');
+    },700);
+  });
+  $('#openTerms').onclick=()=>$('#ovTerms').classList.add('open');
+  $('#termsClose').onclick=()=>$('#ovTerms').classList.remove('open');
+  $('#termsOk').onclick=()=>{ $('#cTermos').checked=true; $('#fTermos').classList.remove('err'); $('#ovTerms').classList.remove('open'); };
+
+  /* ---------- social (R02 FA04 / R03 FA03) ---------- */
+  let socialCtx=null;
+  $$('[data-social]').forEach(b=>b.addEventListener('click',()=>{
+    if(b.dataset.from==='cad' && !$('#cTermos').checked){ $('#fTermos').classList.add('err'); show('cadAlert','Para continuar com '+b.dataset.social+', aceite primeiro os Termos de Uso.'); return; }
+    socialCtx=b.dataset;
+    $('#socT').textContent='Continuar com '+b.dataset.social;
+    $('#socP').textContent='Simulação: o '+b.dataset.social+' pede sua autorização para compartilhar nome e e-mail com o Aplicativo Praia.';
+    $('#ovSocial').classList.add('open');
+  }));
+  $('#socNo').onclick=()=>{ $('#ovSocial').classList.remove('open'); toast('Acesso com '+socialCtx.social+' cancelado.'); };
+  $('#socYes').onclick=()=>{
+    $('#ovSocial').classList.remove('open');
+    startSession('marina.souza@email.com','Marina Souza'); state.available=false; paintStatus();
+    go('r06'); toast(socialCtx.from==='cad'?'Conta criada com '+socialCtx.social+'.':'Você entrou com '+socialCtx.social+'.');
+  };
+
+  /* ---------- R03 login ---------- */
+  $('#fLogin').addEventListener('submit',e=>{
+    e.preventDefault(); show('loginAlert'); show('loginOk');
+    const email=$('#lEmail').value.trim().toLowerCase(), senha=$('#lSenha').value;
+    let ok = err('fLEmail', !validEmail(email));
+    ok = err('fLSenha', !senha) && ok;
+    if(!ok) return;
+    const btn=$('#btnLogin'); busy(btn,true);
+    setTimeout(()=>{
+      busy(btn,false);
+      const u=state.users[email];
+      if(!u || u.pass!==senha){ show('loginAlert','Não foi possível entrar. Verifique os dados e tente novamente.'); return; }
+      state.remember=$('#lSalvar').checked;
+      startSession(email,u.name); $('#lSenha').value='';
+      go('r06');
+    },700);
+  });
+
+  /* ---------- R04 recuperação ---------- */
+  $('#fRec').addEventListener('submit',e=>{
+    e.preventDefault(); show('recInfo');
+    const tel=$('#rTel').value;
+    if(!err('fRTel', !validTel(tel))) return;
+    const btn=$('#btnRec'); busy(btn,true);
+    setTimeout(()=>{
+      busy(btn,false);
+      state.recTel=digits(tel); state.tries=0;
+      const d=state.recTel; $('#maskedTel').textContent='('+d.slice(0,2)+') •••••-'+d.slice(-4);
+      $('#fCode').reset(); $('#kCodigo').disabled=false; show('codeAlert');
+      toast('Se o telefone estiver cadastrado, você receberá um código por SMS.');
+      go('r07');
+    },800);
+  });
+
+  /* ---------- R07 código e nova senha ---------- */
+  function startCountdown(){
+    clearInterval(state.timer); let s=30; const r=$('#resend'), c=$('#countdown');
+    r.disabled=true; c.textContent='em '+s+'s';
+    state.timer=setInterval(()=>{ s--; if(s<=0){ clearInterval(state.timer); r.disabled=false; c.textContent=''; } else c.textContent='em '+s+'s'; },1000);
+  }
+  $('#resend').onclick=()=>{ state.tries=0; $('#kCodigo').disabled=false; $('#kCodigo').value=''; show('codeAlert'); toast('Novo código enviado. O anterior deixou de valer.'); startCountdown(); };
+  $('#fCode').addEventListener('submit',e=>{
+    e.preventDefault(); show('codeAlert');
+    if($('#kCodigo').disabled){ show('codeAlert','Este código foi bloqueado. Solicite um novo código.'); return; }
+    const code=$('#kCodigo').value, nova=$('#kNova').value, conf=$('#kConf').value;
+    let ok = err('fCodigo', code.length!==6);
+    ok = err('fNova', !nova) && ok;
+    ok = err('fConf', !conf || conf!==nova) && ok;
+    if(!ok) return;
+    const btn=$('#btnCode'); busy(btn,true);
+    setTimeout(()=>{
+      busy(btn,false);
+      if(code!=='123456'){
+        state.tries++;
+        if(state.tries>=3){
+          $('#kCodigo').disabled=true; clearInterval(state.timer); $('#resend').disabled=false; $('#countdown').textContent='';
+          show('codeAlert','Você errou o código 3 vezes e ele foi bloqueado. Toque em “Reenviar código” para receber outro.');
+        } else {
+          show('codeAlert','Código incorreto ou expirado. Confira o SMS e tente de novo. Restam '+(3-state.tries)+' tentativa'+(3-state.tries>1?'s':'')+'.');
+        }
+        $('#fCodigo').classList.add('err'); return;
+      }
+      for(const k in state.users){ if(state.users[k].tel===state.recTel) state.users[k].pass=nova; }
+      clearInterval(state.timer); $('#fCode').reset();
+      show('loginOk','Senha redefinida. Entre com a nova senha.');
+      location.hash='r03';
+      setTimeout(()=>show('loginOk','Senha redefinida. Entre com a nova senha.'),0);
+    },700);
+  });
+
+  /* ---------- R06 disponibilidade ---------- */
+  function paintStatus(){
+    const on=state.available;
+    $('#avail').setAttribute('aria-checked', on?'true':'false');
+    $('#statusCard').className='status '+(on?'on':'off');
+    $('#statusBig').textContent= on?'Disponível':'Indisponível';
+    $('#statusDesc').textContent= on?'Você está recebendo rotas e pedidos.':'Você não está recebendo novas rotas e pedidos.';
+  }
+  $('#avail').onclick=()=>{
+    show('locAlert');
+    if(state.available){ setAvail(false); return; }
+    if(state.locAllowed===true){ setAvail(true); return; }
+    $('#ovLoc').classList.add('open');
+  };
+  function setAvail(v){
+    const sw=$('#avail'); sw.disabled=true;
+    setTimeout(()=>{ state.available=v; paintStatus(); sw.disabled=false; toast(v?'Você está disponível.':'Você está indisponível.'); },350);
+  }
+  $('#locYes').onclick=()=>{ state.locAllowed=true; $('#ovLoc').classList.remove('open'); setAvail(true); };
+  $('#locNo').onclick=()=>{ state.locAllowed=null; $('#ovLoc').classList.remove('open'); state.available=false; paintStatus(); show('locAlert','Sem acesso à localização não é possível ficar disponível. Ative a chave de novo para permitir.'); };
+
+  /* ---------- R05 logoff ---------- */
+  function openSair(){ $('#ovSair').classList.add('open'); $('#sairSim').focus(); }
+  function closeAll(){ $$('.overlay').forEach(o=>o.classList.remove('open')); }
+  $('#btnSair').onclick=openSair;
+  $('#sairClose').onclick=()=>$('#ovSair').classList.remove('open');
+  $('#ovSair').addEventListener('click',e=>{ if(e.target.id==='ovSair') $('#ovSair').classList.remove('open'); });
+  function logout(to){
+    state.available=false; paintStatus(); state.session=null; state.remember=false;
+    $('#ovSair').classList.remove('open'); go(to); toast('Você saiu da conta.');
+  }
+  $('#sairSim').onclick=()=>logout('r01');
+  $('#sairOutro').onclick=()=>{ $('#lEmail').value=''; $('#lSenha').value=''; logout('r03'); };
+
+  /* ---------- painel ---------- */
+  $('#openPanel').onclick=()=>$('#panel').classList.add('open');
+  $('#closePanel').onclick=()=>$('#panel').classList.remove('open');
+  $('#reopen').onclick=()=>{
+    $('#panel').classList.remove('open');
+    if(state.session && state.remember){ go('r06'); toast('Sessão salva: o app abriu direto na tela inicial.'); }
+    else { state.session=null; state.available=false; paintStatus(); go('r01'); }
+  };
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeAll(); $('#panel').classList.remove('open'); } });
+
+  paintStatus();
+  render(location.hash.slice(1)||'r01');
+})();
+</script>
+</body>
+</html>
