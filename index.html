@@ -157,6 +157,119 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
 .profile b{display:block;font-size:16px}.profile span{color:var(--muted);font-size:13.5px}
 .exit{width:100%;display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;color:var(--danger);font-weight:800;font-size:15px;margin-top:14px}
 
+
+/* Produtos */
+.seg{display:grid;grid-template-columns:1fr 1fr;background:#DCEBEC;border-radius:12px;padding:4px;gap:4px;margin-bottom:16px}
+.seg button{border:0;background:transparent;border-radius:9px;height:40px;font-weight:700;font-size:14px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--sea);box-shadow:0 1px 3px rgba(10,52,66,.15)}
+.money{position:relative}
+.money span{position:absolute;left:14px;top:14px;font-weight:700;color:var(--muted)}
+.money input{padding-left:42px!important;font-variant-numeric:tabular-nums}
+.photo-pick{display:flex;align-items:center;gap:14px;border:1.5px dashed #9CC3C9;background:var(--card);border-radius:14px;padding:12px;cursor:pointer}
+.photo-pick:hover{border-color:var(--sea)}
+.photo-pick .thumb{width:64px;height:64px;border-radius:12px;background:var(--foam);display:grid;place-items:center;flex:none;overflow:hidden}
+.photo-pick .thumb img{width:100%;height:100%;object-fit:cover}
+.photo-pick b{display:block;font-size:14px}
+.photo-pick small{color:var(--muted);font-size:12.5px}
+.photo-pick input{position:absolute;width:1px;height:1px;opacity:0}
+.sec{font:600 15px var(--display);margin:24px 0 10px;display:flex;justify-content:space-between;align-items:baseline}
+.sec small{font:600 12.5px var(--body);color:var(--muted)}
+.items{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.item .thumb{width:46px;height:46px;border-radius:10px;background:var(--sand);display:grid;place-items:center;flex:none;overflow:hidden;font:700 14px var(--display);color:var(--sea-deep)}
+.item .thumb img{width:100%;height:100%;object-fit:cover}
+.item .nm{flex:1;min-width:0}
+.item .nm b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .price{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:11px;font-weight:800;border-radius:999px;padding:2px 8px;margin-top:3px}
+.chip.prod{background:#E0EFF2;color:var(--sea)}
+.chip.serv{background:#FBEFD8;color:#8A5A0E}
+.chip.ok{background:#DDF3E9;color:#13603F}
+
+/* Pedidos */
+.order{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px}
+.order.accepted{border-color:#9AD6BC}
+.ohead{display:flex;align-items:center;gap:12px}
+.face{width:48px;height:48px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 16px var(--display);color:#fff;position:relative;overflow:hidden}
+.face svg{position:absolute;inset:0}
+.face span{position:relative}
+.oname{flex:1;min-width:0}
+.oname b{display:block;font-size:15px}
+.oname small{color:var(--muted);font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:4px}
+.iconbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--foam);display:grid;place-items:center;color:var(--sea);flex:none;position:relative}
+.iconbtn:hover{border-color:var(--sea)}
+.iconbtn .dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--danger);border:2px solid var(--foam)}
+.odesc{margin:10px 0 12px;font-size:14px;line-height:1.45}
+.oact{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.oact .btn{height:44px;font-size:14.5px}
+.btn.refuse{background:var(--card);color:var(--danger);border:1.5px solid #E7B3AA}
+.accepted-note{display:flex;align-items:center;gap:8px;font-size:13px;color:#13603F;font-weight:700}
+.empty{color:var(--muted);font-size:14px;text-align:center;padding:18px 8px;border:1px dashed var(--line);border-radius:14px}
+.badge{position:absolute;top:2px;left:50%;margin-left:6px;min-width:18px;height:18px;border-radius:9px;background:var(--danger);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;padding:0 5px}
+.tabbar button{position:relative}
+
+/* Localização */
+.mapbox{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#EAD9B4}
+.mapbox svg{display:block;width:100%;height:auto}
+.maptag{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;color:#6E4A0C;background:rgba(255,255,255,.85);padding:3px 8px;border-radius:6px}
+.loccard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:12px}
+.loccard .row2{display:flex;gap:8px;margin-top:12px}
+.loccard .row2 .btn{height:46px;font-size:14.5px}
+
+/* Conversa */
+.chathead{display:flex;align-items:center;gap:10px;padding:4px 14px 8px;border-bottom:1px solid var(--line);flex:none;background:var(--card)}
+.chathead .face{width:40px;height:40px;font-size:14px}
+.chathead b{display:block;font-size:15px}
+.chathead small{color:var(--muted);font-size:12px;font-weight:600}
+.msgs{flex:1;min-height:0;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.ordref{align-self:center;max-width:92%;background:#FFF6E3;border:1px solid #F0DDB0;color:#6E4A0C;border-radius:12px;padding:8px 12px;font-size:12.5px;line-height:1.4;text-align:center}
+.bub{max-width:78%;padding:9px 12px 6px;border-radius:16px;font-size:14px;line-height:1.4;word-wrap:break-word}
+.bub time{display:block;text-align:right;font-size:10.5px;opacity:.7;margin-top:2px;font-variant-numeric:tabular-nums}
+.bub.them{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.bub.me{align-self:flex-end;background:var(--sea);color:#fff;border-bottom-right-radius:6px}
+.typing{align-self:flex-start;color:var(--muted);font-size:12.5px;font-style:italic}
+.composer{flex:none;display:flex;gap:8px;padding:10px 12px 16px;background:var(--card);border-top:1px solid var(--line)}
+.composer input{flex:1;height:46px;border:1.5px solid var(--line);border-radius:23px;padding:0 16px;font-size:15px;background:var(--foam)}
+.composer input:focus{outline:none;border-color:var(--sea)}
+.send{width:46px;height:46px;border-radius:50%;border:0;background:var(--sea);color:#fff;display:grid;place-items:center;flex:none}
+.send:disabled{opacity:.45}
+.code.new{background:#DDF3E9;color:#13603F}
+
+
+/* Mapa de calor */
+.seg.seg3{grid-template-columns:repeat(3,1fr)}
+.legend{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;color:var(--muted);margin:10px 2px 0}
+.legend i{flex:1;height:10px;border-radius:5px;background:linear-gradient(90deg,#F7D774,#F2A93B,#E5533D)}
+.upd{font-size:12.5px;color:var(--muted);margin:8px 2px 0;line-height:1.4}
+.zone{cursor:pointer}
+.zone:focus{outline:none}
+.zone:focus-visible .zring{stroke:var(--sun);stroke-width:4}
+.lvl{display:inline-block;white-space:nowrap;flex:none;font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 10px}
+.lvl.alta{background:#FBE1DC;color:#9A2E1E}
+.lvl.media{background:#FDEBCB;color:#7A4E07}
+.lvl.baixa{background:#FBF3CF;color:#6B5A0A}
+.zstats{display:flex;gap:10px;margin-top:12px}
+.zstats div{flex:1;background:var(--foam);border-radius:12px;padding:10px 12px}
+.zstats b{display:block;font:700 20px var(--display);font-variant-numeric:tabular-nums}
+.zstats span{font-size:12px;color:var(--muted);font-weight:700}
+
+/* Perfil */
+.pstatus{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;margin-top:4px}
+.pstatus i{width:8px;height:8px;border-radius:50%;background:var(--off)}
+.pstatus.on i{background:var(--ok)}
+.menu{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.menu button{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;font-weight:700;font-size:15px}
+.menu button:last-child{border-bottom:0}
+.menu button:hover{background:var(--foam)}
+.menu .mi{width:36px;height:36px;border-radius:10px;background:var(--foam);display:grid;place-items:center;color:var(--sea);flex:none}
+.menu small{display:block;font-weight:600;color:var(--muted);font-size:12.5px}
+.menu .chev{margin-left:auto;color:var(--muted)}
+.editbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.editbox[hidden]{display:none}
+.editbox h3{font:600 16px var(--display);margin:0 0 12px}
+.row2b{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
 /* Camadas: modal, folha, toast */
 .overlay{position:absolute;inset:0;background:rgba(10,40,50,.45);display:none;align-items:flex-end;z-index:20}
 .overlay.open{display:flex}
@@ -195,7 +308,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
   <aside class="panel" id="panel" aria-label="Telas do protótipo">
     <button class="ghost closepanel" id="closePanel">Voltar ao protótipo</button>
     <h1>Aplicativo Praia</h1>
-    <p class="sub">Protótipo navegável conforme a especificação v1.1</p>
+    <p class="sub">Protótipo navegável v1.3, conforme a especificação v1.4</p>
 
     <h2>Acesso</h2>
     <ul class="navlist" data-group>
@@ -208,10 +321,12 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
     <h2>Área autenticada</h2>
     <ul class="navlist">
       <li><button data-go="r06"><span class="code">R06</span>Tela inicial</button></li>
-      <li><button data-go="produtos"><span class="code pend">P03</span>Cadastrar produtos</button></li>
-      <li><button data-go="pedidos"><span class="code pend">P03</span>Pedidos</button></li>
-      <li><button data-go="mapa"><span class="code pend">P04</span>Mapa de calor</button></li>
-      <li><button data-go="perfil"><span class="code pend">P03</span>Perfil</button></li>
+      <li><button data-go="produtos"><span class="code">R08</span>Cadastrar produtos</button></li>
+      <li><button data-go="pedidos"><span class="code">R09</span>Pedidos</button></li>
+      <li><button data-go="local"><span class="code">R10</span>Localização do pedido</button></li>
+      <li><button data-go="chat"><span class="code">R11</span>Conversa</button></li>
+      <li><button data-go="mapa"><span class="code">R12</span>Mapa de calor</button></li>
+      <li><button data-go="perfil"><span class="code">R13</span>Perfil</button></li>
       <li><button data-go="r05"><span class="code">R05</span>Logoff (sair)</button></li>
     </ul>
 
@@ -220,7 +335,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
       <p>Conta existente: <b>cliente@praia.com</b> / senha <b>praia123</b>. Contas criadas no cadastro também entram.</p>
       <p>No cadastro, o e-mail <b>cliente@praia.com</b> mostra o aviso de conta já existente.</p>
       <p>Código do SMS: <b>123456</b>. Três códigos errados bloqueiam a tentativa.</p>
-      <p>Telas em amarelo ainda não têm requisitos e aparecem como provisórias.</p>
+      <p>Senhas novas: mínimo de 8 caracteres, com letras e números (RNF04).</p>
     </div>
     <button class="ghost" id="reopen">Fechar e reabrir o app</button>
   </aside>
@@ -265,7 +380,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
           <div class="field" id="fNome"><label for="cNome">Nome completo</label><div class="inp"><input id="cNome" autocomplete="name" placeholder="Seu nome e sobrenome"></div><div class="msg">Informe nome e sobrenome.</div></div>
           <div class="field" id="fEmail"><label for="cEmail">E-mail</label><div class="inp"><input id="cEmail" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com"></div><div class="msg">Informe um e-mail válido.</div></div>
           <div class="field" id="fTel"><label for="cTel">Telefone</label><div class="inp"><input id="cTel" inputmode="tel" autocomplete="tel" placeholder="(81) 99999-9999" data-mask="tel"></div><div class="msg">Informe o telefone com DDD.</div></div>
-          <div class="field" id="fSenha"><label for="cSenha">Senha</label><div class="inp"><input id="cSenha" type="password" autocomplete="new-password" placeholder="Crie uma senha"><button type="button" class="eye" data-eye="cSenha">Mostrar</button></div><div class="msg">Crie uma senha.</div></div>
+          <div class="field" id="fSenha"><label for="cSenha">Senha</label><div class="inp"><input id="cSenha" type="password" autocomplete="new-password" placeholder="Mínimo de 8 caracteres"><button type="button" class="eye" data-eye="cSenha">Mostrar</button></div><div class="msg">Use pelo menos 8 caracteres, com letras e números.</div></div>
           <label class="check" id="fTermos"><input type="checkbox" id="cTermos"><span>Li e aceito os <button type="button" class="link" id="openTerms">Termos de Uso</button></span></label>
           <div style="height:18px"></div>
           <button class="btn primary" type="submit" id="btnCad">Cadastrar</button>
@@ -323,7 +438,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
           <p class="lead">Enviamos um código de 6 dígitos para <b id="maskedTel">(81) •••••-1234</b>.</p>
           <div class="alert error" id="codeAlert" hidden></div>
           <div class="field code-inp" id="fCodigo"><label for="kCodigo">Código de verificação</label><div class="inp"><input id="kCodigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••"></div><div class="msg">Digite os 6 números do código.</div></div>
-          <div class="field" id="fNova"><label for="kNova">Nova senha</label><div class="inp"><input id="kNova" type="password" autocomplete="new-password" placeholder="Crie uma nova senha"><button type="button" class="eye" data-eye="kNova">Mostrar</button></div><div class="msg">Crie uma nova senha.</div></div>
+          <div class="field" id="fNova"><label for="kNova">Nova senha</label><div class="inp"><input id="kNova" type="password" autocomplete="new-password" placeholder="Mínimo de 8 caracteres"><button type="button" class="eye" data-eye="kNova">Mostrar</button></div><div class="msg">Use pelo menos 8 caracteres, com letras e números.</div></div>
           <div class="field" id="fConf"><label for="kConf">Confirmar nova senha</label><div class="inp"><input id="kConf" type="password" autocomplete="new-password" placeholder="Repita a nova senha"><button type="button" class="eye" data-eye="kConf">Mostrar</button></div><div class="msg">As senhas não são iguais.</div></div>
           <button class="btn primary" type="submit" id="btnCode">Redefinir senha</button>
           <p class="center" id="resendWrap">Não recebeu? <button type="button" class="link" id="resend" disabled>Reenviar código</button> <span id="countdown"></span></p>
@@ -355,39 +470,113 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
         </div>
       </section>
 
-      <!-- Telas provisórias -->
-      <section class="screen" data-id="produtos" data-label="Cadastrar produtos (provisória)">
+      <!-- Cadastrar produtos -->
+      <section class="screen" data-id="produtos" data-label="R08 · Cadastrar produtos">
         <div class="topnav"><button class="back" data-go="r06" aria-label="Voltar à tela inicial"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ttl">Cadastrar produtos</span></div>
-        <div class="scroll"><div class="placeholder"><b>Tela provisória</b>Os requisitos do cadastro de produtos ainda não foram documentados (pendência P03). Esta tela existe só para mostrar o caminho a partir da tela inicial.</div></div>
+        <form class="scroll" id="fProd" novalidate>
+          <div class="seg" role="group" aria-label="Categoria">
+            <button type="button" data-cat="Produto" aria-pressed="true">Produto</button>
+            <button type="button" data-cat="Serviço" aria-pressed="false">Serviço</button>
+          </div>
+          <div class="field" id="fPNome"><label for="pNome">Nome</label><div class="inp"><input id="pNome" placeholder="Ex.: Água de coco" maxlength="60"></div><div class="msg">Informe o nome.</div></div>
+          <div class="field" id="fPPreco"><label for="pPreco">Preço</label><div class="inp money"><span>R$</span><input id="pPreco" inputmode="numeric" placeholder="0,00"></div><div class="msg">Informe um preço maior que zero.</div></div>
+          <div class="field"><label for="pFoto">Foto</label>
+            <label class="photo-pick" for="pFoto">
+              <span class="thumb" id="pThumb"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5F73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+              <span><b id="pFotoTxt">Adicionar foto</b><small>Tire uma foto ou escolha da galeria</small></span>
+              <input type="file" id="pFoto" accept="image/*">
+            </label>
+          </div>
+          <button class="btn primary" type="submit" id="btnProd">Cadastrar</button>
+          <div class="sec"><span>Seus itens</span><small id="pCount">2 itens</small></div>
+          <div class="items" id="pList"></div>
+        </form>
       </section>
-      <section class="screen" data-id="pedidos" data-label="Pedidos (provisória)">
+
+      <!-- Pedidos -->
+      <section class="screen" data-id="pedidos" data-label="R09 · Pedidos">
         <div class="topnav" style="padding-left:22px"><span class="ttl">Pedidos</span></div>
-        <div class="scroll"><div class="placeholder"><b>Tela provisória</b>Os requisitos da tela de pedidos ainda não foram documentados (pendência P03).</div></div>
+        <div class="scroll" id="oList"></div>
       </section>
-      <section class="screen" data-id="mapa" data-label="Mapa de calor (provisória)">
-        <div class="topnav" style="padding-left:22px"><span class="ttl">Mapa de calor</span></div>
+
+      <!-- Localização do frequentador -->
+      <section class="screen" data-id="local" data-label="R10 · Localização do pedido">
+        <div class="topnav"><button class="back" data-go="pedidos" aria-label="Voltar aos pedidos"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ttl">Localização</span></div>
         <div class="scroll">
-          <div class="placeholder"><b>Tela provisória</b>Ainda falta definir o que o mapa representa e de onde vêm os dados (pendência P04). A imagem abaixo é só ilustrativa.</div>
-          <div class="heat" aria-hidden="true">
-            <span style="left:30px;top:120px;width:120px;height:90px;background:#E8572F"></span>
-            <span style="left:170px;top:150px;width:90px;height:70px;background:#F4A62A"></span>
-            <span style="left:250px;top:100px;width:70px;height:60px;background:#F7D154"></span>
-            <em>Ilustrativo</em>
+          <div class="mapbox" id="mapBox"></div>
+          <div class="loccard">
+            <div class="ohead"><div class="face" id="lFace"></div><div class="oname"><b id="lName">Ana Beatriz</b><small id="lDist">120 m de você</small></div></div>
+            <p class="odesc" id="lDesc" style="margin-bottom:0"></p>
+            <div class="row2">
+              <button class="btn secondary" data-go="pedidos">Voltar aos pedidos</button>
+              <button class="btn primary" id="lChat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Mensagem</button>
+            </div>
           </div>
         </div>
       </section>
-      <section class="screen" data-id="perfil" data-label="Perfil (provisória)">
+
+      <!-- Conversa -->
+      <section class="screen" data-id="chat" data-label="R11 · Conversa">
+        <div class="chathead">
+          <button class="back" id="chatBack" aria-label="Voltar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="face" id="cFace"></div>
+          <div style="flex:1;min-width:0"><b id="cName">Ana Beatriz</b><small id="cSub">a 120 m · pedido novo</small></div>
+          <button class="iconbtn" id="cLoc" aria-label="Ver localização"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.5"/></svg></button>
+        </div>
+        <div class="msgs" id="msgs" aria-live="polite"></div>
+        <form class="composer" id="fMsg">
+          <input id="msgIn" placeholder="Escreva uma mensagem" autocomplete="off" aria-label="Mensagem">
+          <button class="send" id="msgSend" type="submit" aria-label="Enviar" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></button>
+        </form>
+      </section>
+
+      <!-- R12 Mapa de calor -->
+      <section class="screen" data-id="mapa" data-label="R12 · Mapa de calor">
+        <div class="topnav" style="padding-left:22px"><span class="ttl">Mapa de calor</span></div>
+        <div class="scroll">
+          <div class="seg seg3" role="group" aria-label="Período" id="perSeg">
+            <button type="button" data-per="agora" aria-pressed="true">Agora</button>
+            <button type="button" data-per="hora" aria-pressed="false">Última hora</button>
+            <button type="button" data-per="hoje" aria-pressed="false">Hoje</button>
+          </div>
+          <div class="mapbox" id="heatBox"></div>
+          <div class="legend" aria-hidden="true"><span>Menos pedidos</span><i></i><span>Mais pedidos</span></div>
+          <p class="upd" id="heatUpd"></p>
+          <div class="loccard" id="zoneCard"></div>
+        </div>
+      </section>
+
+      <!-- R13 Perfil -->
+      <section class="screen" data-id="perfil" data-label="R13 · Perfil">
         <div class="topnav" style="padding-left:22px"><span class="ttl">Perfil</span></div>
         <div class="scroll">
-          <div class="profile"><div class="avatar" id="avatar2">MS</div><div><b id="profName">Marina Souza</b><span id="profMail">cliente@praia.com</span></div></div>
-          <div class="placeholder"><b>Tela provisória</b>Os demais itens do perfil ainda não foram documentados (pendência P03). A ação “Sair” segue a ficha R05.</div>
+          <div class="profile"><div class="avatar" id="avatar2">MS</div><div><b id="profName">Marina Souza</b><span id="profMail">cliente@praia.com</span><span class="pstatus" id="profStatus"><i></i><span>Indisponível</span></span></div></div>
+          <form class="editbox" id="fPerfil" hidden novalidate>
+            <h3>Editar dados</h3>
+            <div class="field" id="fENome"><label for="eNome">Nome completo</label><div class="inp"><input id="eNome" autocomplete="name"></div><div class="msg">Informe nome e sobrenome.</div></div>
+            <div class="field" id="fETel"><label for="eTel">Telefone</label><div class="inp"><input id="eTel" inputmode="tel" data-mask="tel" autocomplete="tel"></div><div class="msg">Informe o telefone com DDD.</div></div>
+            <div class="field"><label for="eFoto">Foto do perfil</label>
+              <label class="photo-pick" for="eFoto">
+                <span class="thumb" id="eThumb"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5F73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+                <span><b id="eFotoTxt">Trocar foto</b><small>Câmera ou galeria</small></span>
+                <input type="file" id="eFoto" accept="image/*">
+              </label>
+            </div>
+            <div class="row2b"><button type="button" class="btn secondary" id="eCancel">Cancelar</button><button type="submit" class="btn primary" id="eSave">Salvar</button></div>
+          </form>
+          <div class="menu" id="pMenu">
+            <button type="button" id="mEdit"><span class="mi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span>Editar dados<small>Nome, telefone e foto</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button type="button" data-go="produtos"><span class="mi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span><span>Meus produtos e serviços<small id="mItens">2 itens</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button type="button" data-go="r04"><span class="mi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span>Alterar senha<small>Confirmação por código via SMS</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button type="button" id="mTerms"><span class="mi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h6"/></svg></span><span>Termos de Uso e privacidade<small>Como seus dados são usados</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
           <button class="exit" id="btnSair"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Sair</button>
         </div>
       </section>
 
       <!-- Menu inferior da área autenticada -->
       <nav class="tabbar" id="tabbar" aria-label="Menu principal" hidden>
-        <button data-tab="pedidos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Pedidos</button>
+        <button data-tab="pedidos"><span class="badge" id="pedBadge">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>Pedidos</button>
         <button data-tab="mapa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.5"/></svg>Mapa de calor</button>
         <button data-tab="r06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Início</button>
         <button data-tab="perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Perfil</button>
@@ -451,7 +640,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
 (function(){
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
-  const AUTH = ['r06','produtos','pedidos','mapa','perfil'];
+  const AUTH = ['r06','produtos','pedidos','mapa','perfil','local','chat'];
   const TABS = ['r06','pedidos','mapa','perfil'];
   const state = {
     users: { 'cliente@praia.com': { pass:'praia123', name:'Marina Souza', tel:'81998761234' } },
@@ -466,6 +655,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
   const digits = v => v.replace(/\D/g,'');
   const validEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
   function maskTel(v){ const d=digits(v).slice(0,11); if(d.length<=2) return d.length?'('+d:''; if(d.length<=6) return '('+d.slice(0,2)+') '+d.slice(2); if(d.length<=10) return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6); return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7); }
+  const strong = v => v.length>=8 && /[A-Za-zÀ-ú]/.test(v) && /\d/.test(v);
   const validTel = v => { const n=digits(v).length; return n===10||n===11; };
   function initials(n){ const p=n.trim().split(/\s+/); return ((p[0]||'')[0]||'').toUpperCase()+((p[p.length-1]||'')[0]||'').toUpperCase(); }
   function busy(btn, on, label){ if(on){ btn._l=btn.innerHTML; btn.innerHTML='<span class="spin"></span>'; btn.disabled=true; } else { btn.innerHTML=btn._l||label; btn.disabled=false; } }
@@ -486,6 +676,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
     const sc=scr.querySelector('.scroll'); if(sc) sc.scrollTop=0;
     if(id!=='r03') show('loginOk');
     if(id==='r07') startCountdown();
+    if(typeof HOOKS!=='undefined' && HOOKS[id]) HOOKS[id]();
   }
   function go(id){ if(location.hash.slice(1)===id) render(id); else location.hash=id; }
   window.addEventListener('hashchange',()=>render(location.hash.slice(1)||'r01'));
@@ -516,7 +707,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
     let ok = err('fNome', nome.split(/\s+/).filter(Boolean).length<2);
     ok = err('fEmail', !validEmail(email)) && ok;
     ok = err('fTel', !validTel(tel)) && ok;
-    ok = err('fSenha', !senha) && ok;
+    ok = err('fSenha', !strong(senha)) && ok;
     if(!ok){ show('cadAlert','Confira os campos destacados.'); return; }
     if(!$('#cTermos').checked){ $('#fTermos').classList.add('err'); show('cadAlert','Para continuar, aceite os Termos de Uso.'); return; }
     const btn=$('#btnCad'); busy(btn,true);
@@ -598,7 +789,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
     if($('#kCodigo').disabled){ show('codeAlert','Este código foi bloqueado. Solicite um novo código.'); return; }
     const code=$('#kCodigo').value, nova=$('#kNova').value, conf=$('#kConf').value;
     let ok = err('fCodigo', code.length!==6);
-    ok = err('fNova', !nova) && ok;
+    ok = err('fNova', !strong(nova)) && ok;
     ok = err('fConf', !conf || conf!==nova) && ok;
     if(!ok) return;
     const btn=$('#btnCode'); busy(btn,true);
@@ -638,7 +829,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
   };
   function setAvail(v){
     const sw=$('#avail'); sw.disabled=true;
-    setTimeout(()=>{ state.available=v; paintStatus(); sw.disabled=false; toast(v?'Você está disponível.':'Você está indisponível.'); },350);
+    setTimeout(()=>{ state.available=v; paintStatus(); updBadge(); sw.disabled=false; toast(v?'Você está disponível.':'Você está indisponível.'); },350);
   }
   $('#locYes').onclick=()=>{ state.locAllowed=true; $('#ovLoc').classList.remove('open'); setAvail(true); };
   $('#locNo').onclick=()=>{ state.locAllowed=null; $('#ovLoc').classList.remove('open'); state.available=false; paintStatus(); show('locAlert','Sem acesso à localização não é possível ficar disponível. Ative a chave de novo para permitir.'); };
@@ -650,11 +841,287 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
   $('#sairClose').onclick=()=>$('#ovSair').classList.remove('open');
   $('#ovSair').addEventListener('click',e=>{ if(e.target.id==='ovSair') $('#ovSair').classList.remove('open'); });
   function logout(to){
-    state.available=false; paintStatus(); state.session=null; state.remember=false;
+    state.available=false; paintStatus(); updBadge(); state.session=null; state.remember=false;
     $('#ovSair').classList.remove('open'); go(to); toast('Você saiu da conta.');
   }
   $('#sairSim').onclick=()=>logout('r01');
   $('#sairOutro').onclick=()=>{ $('#lEmail').value=''; $('#lSenha').value=''; logout('r03'); };
+
+
+  /* ---------- Cadastrar produtos ---------- */
+  const brl = n => n.toLocaleString('pt-BR',{minimumFractionDigits:2, maximumFractionDigits:2});
+  state.products = [
+    {cat:'Produto', nome:'Água de coco gelada', preco:8, foto:null},
+    {cat:'Serviço', nome:'Aluguel de cadeira e guarda-sol', preco:25, foto:null}
+  ];
+  state.cat = 'Produto'; state.foto = null;
+  $$('#fProd .seg button').forEach(b=>b.addEventListener('click',()=>{
+    state.cat=b.dataset.cat;
+    $$('#fProd .seg button').forEach(x=>x.setAttribute('aria-pressed', x===b?'true':'false'));
+    $('#pNome').placeholder = state.cat==='Produto' ? 'Ex.: Água de coco' : 'Ex.: Aluguel de guarda-sol';
+  }));
+  $('#pPreco').addEventListener('input',e=>{ const d=digits(e.target.value).slice(0,7); e.target.value = d ? brl(parseInt(d,10)/100) : ''; });
+  $('#pFoto').addEventListener('change',e=>{
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    state.foto = URL.createObjectURL(f);
+    $('#pThumb').innerHTML=''; const im=document.createElement('img'); im.src=state.foto; im.alt='Foto escolhida'; $('#pThumb').appendChild(im);
+    $('#pFotoTxt').textContent='Trocar foto';
+  });
+  function renderProducts(){
+    const list=$('#pList'); list.innerHTML='';
+    state.products.slice().reverse().forEach(it=>{
+      const row=document.createElement('div'); row.className='item';
+      const th=document.createElement('div'); th.className='thumb';
+      if(it.foto){ const im=document.createElement('img'); im.src=it.foto; im.alt=''; th.appendChild(im); } else th.textContent=initials(it.nome);
+      const nm=document.createElement('div'); nm.className='nm';
+      const b=document.createElement('b'); b.textContent=it.nome;
+      const c=document.createElement('span'); c.className='chip '+(it.cat==='Produto'?'prod':'serv'); c.textContent=it.cat;
+      nm.append(b,c);
+      const pr=document.createElement('div'); pr.className='price'; pr.textContent='R$ '+brl(it.preco);
+      row.append(th,nm,pr); list.appendChild(row);
+    });
+    const n=state.products.length; $('#pCount').textContent = n+(n===1?' item':' itens');
+  }
+  $('#fProd').addEventListener('submit',e=>{
+    e.preventDefault();
+    const nome=$('#pNome').value.trim(), preco=parseInt(digits($('#pPreco').value)||'0',10)/100;
+    let ok = err('fPNome', !nome);
+    ok = err('fPPreco', !(preco>0)) && ok;
+    if(!ok) return;
+    const btn=$('#btnProd'); busy(btn,true);
+    setTimeout(()=>{
+      busy(btn,false);
+      state.products.push({cat:state.cat, nome, preco, foto:state.foto});
+      $('#pNome').value=''; $('#pPreco').value=''; $('#pFoto').value=''; state.foto=null;
+      $('#pThumb').innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0B5F73" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+      $('#pFotoTxt').textContent='Adicionar foto';
+      renderProducts();
+      toast((state.cat==='Produto'?'Produto':'Serviço')+' cadastrado.');
+      $('#pList').scrollIntoView({behavior:'smooth', block:'start'});
+    },500);
+  });
+
+  /* ---------- Pedidos ---------- */
+  const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); };
+  state.orders = [
+    {id:'o1', name:'Ana Beatriz', color:'#D9774F', dist:'120 m', mins:2, x:236, y:128,
+     desc:'2 águas de coco e 1 queijo coalho. Estou no guarda-sol azul, em frente ao posto 3.',
+     status:'novo', unread:true, replied:false,
+     msgs:[{from:'them', text:'Oi! Pode trazer a água de coco bem gelada?', t:'21:28'}],
+     reply:'Combinado, obrigada! Estou de camisa amarela.'},
+    {id:'o2', name:'Carlos Mendes', color:'#3D7FA6', dist:'350 m', mins:5, x:78, y:112,
+     desc:'Aluguel de 2 cadeiras e 1 guarda-sol por 3 horas.',
+     status:'novo', unread:false, replied:false, msgs:[],
+     reply:'Perfeito, estou esperando aqui.'},
+    {id:'o3', name:'Juliana Rocha', color:'#6E8B3D', dist:'80 m', mins:9, x:204, y:176,
+     desc:'3 picolés de frutas. Guarda-sol amarelo, perto do coqueiro.',
+     status:'novo', unread:false, replied:false, msgs:[],
+     reply:'Ótimo, obrigada!'}
+  ];
+  state.order = state.orders[0]; state.chatFrom='pedidos';
+  const ICON_CHAT = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>';
+  const ICON_PIN = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-3 7-6.5 7-11a7 7 0 0 0-14 0c0 4.5 3 8 7 11z"/><circle cx="12" cy="11" r="2.5"/></svg>';
+  function face(el, o){ el.style.background=o.color; el.innerHTML=''; el.setAttribute('role','img'); el.setAttribute('aria-label','Foto de '+o.name); const sp=document.createElement('span'); sp.textContent=initials(o.name); el.appendChild(sp); }
+  function updBadge(){ const n=state.available ? state.orders.filter(o=>o.status==='novo').length : 0; const b=$('#pedBadge'); b.textContent=n; b.style.display=n?'grid':'none'; }
+  function orderCard(o){
+    const card=document.createElement('article'); card.className='order'+(o.status==='aceito'?' accepted':'');
+    const head=document.createElement('div'); head.className='ohead';
+    const f=document.createElement('div'); f.className='face'; face(f,o);
+    const nm=document.createElement('div'); nm.className='oname';
+    const b=document.createElement('b'); b.textContent=o.name;
+    const sm=document.createElement('small'); sm.innerHTML=ICON_PIN.replace('width="20" height="20"','width="13" height="13"'); sm.append(' '+o.dist+' · há '+o.mins+' min');
+    nm.append(b,sm);
+    const bc=document.createElement('button'); bc.className='iconbtn'; bc.setAttribute('aria-label','Trocar mensagem com '+o.name); bc.innerHTML=ICON_CHAT+(o.unread?'<span class="dot"></span>':'');
+    bc.onclick=()=>{ state.order=o; state.chatFrom='pedidos'; go('chat'); };
+    const bl=document.createElement('button'); bl.className='iconbtn'; bl.setAttribute('aria-label','Ver localização de '+o.name); bl.innerHTML=ICON_PIN;
+    bl.onclick=()=>{ state.order=o; go('local'); };
+    head.append(f,nm,bc,bl);
+    const d=document.createElement('p'); d.className='odesc'; d.textContent=o.desc;
+    card.append(head,d);
+    if(o.status==='novo'){
+      const a=document.createElement('div'); a.className='oact';
+      const r=document.createElement('button'); r.className='btn refuse'; r.textContent='Recusar';
+      r.onclick=()=>{ o.status='recusado'; renderOrders(); toast('Pedido de '+o.name.split(' ')[0]+' recusado.'); };
+      const ac=document.createElement('button'); ac.className='btn primary'; ac.textContent='Aceitar';
+      ac.onclick=()=>{ o.status='aceito'; renderOrders(); toast('Pedido aceito. Combine a entrega pela mensagem.'); };
+      a.append(r,ac); card.appendChild(a);
+    } else {
+      const n=document.createElement('div'); n.className='accepted-note';
+      n.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+      n.append('Aceito. Combine a entrega pela mensagem.'); card.appendChild(n);
+    }
+    return card;
+  }
+  function renderOrders(){
+    const box=$('#oList'); box.innerHTML='';
+    const novos=state.available ? state.orders.filter(o=>o.status==='novo') : [], aceitos=state.orders.filter(o=>o.status==='aceito');
+    const h1=document.createElement('div'); h1.className='sec'; h1.style.marginTop='4px'; h1.innerHTML='<span>Novos pedidos</span>'; const c1=document.createElement('small'); c1.textContent=novos.length; h1.appendChild(c1); box.appendChild(h1);
+    if(novos.length) novos.forEach(o=>box.appendChild(orderCard(o)));
+    else { const e=document.createElement('div'); e.className='empty'; e.textContent= state.available ? 'Nenhum pedido novo no momento.' : 'Você está indisponível. Ative a disponibilidade na tela inicial para receber pedidos.'; box.appendChild(e); }
+    if(aceitos.length){
+      const h2=document.createElement('div'); h2.className='sec'; h2.innerHTML='<span>Aceitos</span>'; const c2=document.createElement('small'); c2.textContent=aceitos.length; h2.appendChild(c2); box.appendChild(h2);
+      aceitos.forEach(o=>box.appendChild(orderCard(o)));
+    }
+    updBadge();
+  }
+
+  /* ---------- Localização ---------- */
+  function renderLocal(){
+    const o=state.order;
+    const me={x:170,y:208};
+    const pins = state.orders.filter(x=>x!==o && x.status!=='recusado').map(x=>`<circle cx="${x.x}" cy="${x.y}" r="5" fill="#93A5AC" opacity=".7"/>`).join('');
+    $('#mapBox').innerHTML = `
+      <svg viewBox="0 0 340 290" role="img" aria-label="Mapa com a sua posição e a de ${o.name}">
+        <rect width="340" height="290" fill="#EBD9B2"/>
+        <path d="M0 0H340V78C300 92 270 70 230 84S150 100 110 86S40 70 0 86Z" fill="#7CC3CC"/>
+        <path d="M0 86C40 70 80 98 110 86S180 72 230 84S300 92 340 78" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+        <path d="M0 40C30 34 50 46 80 40" stroke="#fff" stroke-width="2" fill="none" opacity=".5"/>
+        <path d="M200 30C230 24 250 36 280 30" stroke="#fff" stroke-width="2" fill="none" opacity=".5"/>
+        <rect y="244" width="340" height="46" fill="#C9CFD1"/>
+        <rect y="240" width="340" height="6" fill="#B9A27A"/>
+        <path d="M0 268H340" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"/>
+        <text x="12" y="284" font-size="10" font-weight="700" fill="#5D7983" font-family="Poppins, Arial">Orla</text>
+        <g fill="#5BA36E"><circle cx="40" cy="210" r="9"/><circle cx="300" cy="222" r="9"/><circle cx="120" cy="226" r="7"/></g>
+        <g fill="#F4A62A"><path d="M60 160a14 7 0 0 1 28 0z"/><path d="M270 150a14 7 0 0 1 28 0z"/></g>
+        ${pins}
+        <line x1="${me.x}" y1="${me.y}" x2="${o.x}" y2="${o.y}" stroke="#0B5F73" stroke-width="2.5" stroke-dasharray="6 5"/>
+        <circle cx="${me.x}" cy="${me.y}" r="14" fill="#0B5F73" opacity=".18"/>
+        <circle cx="${me.x}" cy="${me.y}" r="7" fill="#0B5F73" stroke="#fff" stroke-width="3"/>
+        <text x="${me.x}" y="${me.y+26}" text-anchor="middle" font-size="11" font-weight="800" fill="#0A3442" font-family="Poppins, Arial">Você</text>
+        <path d="M${o.x} ${o.y}c-14-16-20-24-20-33a20 20 0 0 1 40 0c0 9-6 17-20 33z" fill="${o.color}" stroke="#fff" stroke-width="2.5"/>
+        <text x="${o.x}" y="${o.y-29}" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Poppins, Arial">${initials(o.name)}</text>
+        <rect x="${(me.x+o.x)/2-24}" y="${(me.y+o.y)/2-10}" width="48" height="20" rx="10" fill="#fff"/>
+        <text x="${(me.x+o.x)/2}" y="${(me.y+o.y)/2+4}" text-anchor="middle" font-size="11" font-weight="800" fill="#0A3442" font-family="Poppins, Arial">${o.dist}</text>
+      </svg><span class="maptag">Mapa ilustrativo</span>`;
+    face($('#lFace'),o); $('#lName').textContent=o.name; $('#lDist').textContent=o.dist+' de você'; $('#lDesc').textContent=o.desc;
+  }
+  $('#lChat').onclick=()=>{ state.chatFrom='local'; go('chat'); };
+
+  /* ---------- Conversa ---------- */
+  function bubble(m){ const d=document.createElement('div'); d.className='bub '+m.from; d.textContent=m.text; const t=document.createElement('time'); t.textContent=m.t; d.appendChild(t); return d; }
+  function renderChat(){
+    const o=state.order; o.unread=false;
+    face($('#cFace'),o); $('#cName').textContent=o.name;
+    $('#cSub').textContent='a '+o.dist+' · '+(o.status==='aceito'?'pedido aceito':o.status==='recusado'?'pedido recusado':'pedido novo');
+    const box=$('#msgs'); box.innerHTML='';
+    const ref=document.createElement('div'); ref.className='ordref'; ref.textContent='Pedido: '+o.desc; box.appendChild(ref);
+    o.msgs.forEach(m=>box.appendChild(bubble(m)));
+    box.scrollTop=box.scrollHeight;
+    $('#msgIn').value=''; $('#msgSend').disabled=true;
+  }
+  $('#msgIn').addEventListener('input',e=>{ $('#msgSend').disabled=!e.target.value.trim(); });
+  $('#fMsg').addEventListener('submit',e=>{
+    e.preventDefault();
+    const o=state.order, txt=$('#msgIn').value.trim(); if(!txt) return;
+    const m={from:'me', text:txt, t:now()}; o.msgs.push(m);
+    const box=$('#msgs'); box.appendChild(bubble(m)); box.scrollTop=box.scrollHeight;
+    $('#msgIn').value=''; $('#msgSend').disabled=true;
+    if(!o.replied){
+      o.replied=true;
+      const ty=document.createElement('div'); ty.className='typing'; ty.textContent=o.name.split(' ')[0]+' está digitando…';
+      setTimeout(()=>{ if(state.current==='chat' && state.order===o){ box.appendChild(ty); box.scrollTop=box.scrollHeight; } },600);
+      setTimeout(()=>{ ty.remove(); const r={from:'them', text:o.reply, t:now()}; o.msgs.push(r); if(state.current==='chat' && state.order===o){ box.appendChild(bubble(r)); box.scrollTop=box.scrollHeight; } },2000);
+    }
+  });
+  $('#chatBack').onclick=()=>go(state.chatFrom==='local'?'local':'pedidos');
+  $('#cLoc').onclick=()=>go('local');
+
+
+  /* ---------- R12 Mapa de calor ---------- */
+  const ZONES = {
+    p3:{nome:'Em frente ao posto 3', x:236, y:150, dist:'140 m'},
+    barr:{nome:'Barracas do centro', x:150, y:128, dist:'90 m'},
+    p2:{nome:'Posto 2, perto do coqueiral', x:70, y:176, dist:'190 m'},
+    pier:{nome:'Píer', x:296, y:204, dist:'160 m'}
+  };
+  const HEAT = {
+    agora:{label:'agora', z:[['p3','alta',14],['barr','media',8],['p2','baixa',5]]},
+    hora:{label:'na última hora', z:[['p3','alta',22],['p2','media',11],['barr','media',9],['pier','baixa',5]]},
+    hoje:{label:'hoje', z:[['barr','alta',64],['p3','alta',58],['p2','media',30],['pier','baixa',12]]}
+  };
+  const LV = {alta:{r:58, c:'#E5533D', t:'Alta demanda'}, media:{r:44, c:'#F2A93B', t:'Média demanda'}, baixa:{r:32, c:'#F7D774', t:'Baixa demanda'}};
+  state.per='agora'; state.zone=null;
+  $$('#perSeg button').forEach(b=>b.addEventListener('click',()=>{
+    state.per=b.dataset.per; state.zone=null;
+    $$('#perSeg button').forEach(x=>x.setAttribute('aria-pressed', x===b?'true':'false'));
+    renderHeat();
+  }));
+  function renderHeat(){
+    const d=HEAT[state.per]; if(!state.zone) state.zone=d.z[0][0];
+    const me={x:170,y:212};
+    const blobs=d.z.map(([id,l])=>{const z=ZONES[id], v=LV[l]; return `<circle cx="${z.x}" cy="${z.y}" r="${v.r}" fill="${v.c}" opacity=".62" filter="url(#hb)"/>`;}).join('');
+    const hits=d.z.map(([id,l])=>{const z=ZONES[id], v=LV[l], sel=id===state.zone;
+      return `<g class="zone" data-z="${id}" tabindex="0" role="button" aria-label="${z.nome}, ${v.t}"><circle class="zring" cx="${z.x}" cy="${z.y}" r="${Math.round(v.r*0.62)}" fill="transparent" stroke="${sel?'#0A3442':'transparent'}" stroke-width="2.5" stroke-dasharray="${sel?'5 4':'0'}"/></g>`;}).join('');
+    $('#heatBox').innerHTML = `
+      <svg viewBox="0 0 340 290" role="img" aria-label="Mapa de calor da praia ${d.label}">
+        <defs><filter id="hb" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter></defs>
+        <rect width="340" height="290" fill="#EBD9B2"/>
+        <path d="M0 0H340V78C300 92 270 70 230 84S150 100 110 86S40 70 0 86Z" fill="#7CC3CC"/>
+        <path d="M0 86C40 70 80 98 110 86S180 72 230 84S300 92 340 78" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+        <rect y="244" width="340" height="46" fill="#C9CFD1"/><rect y="240" width="340" height="6" fill="#B9A27A"/>
+        <path d="M0 268H340" stroke="#fff" stroke-width="2" stroke-dasharray="10 8"/>
+        <text x="12" y="284" font-size="10" font-weight="700" fill="#5D7983" font-family="Poppins, Arial">Orla</text>
+        <rect x="286" y="150" width="10" height="94" fill="#B9A27A"/>
+        ${blobs}${hits}
+        <circle cx="${me.x}" cy="${me.y}" r="14" fill="#0B5F73" opacity=".18"/>
+        <circle cx="${me.x}" cy="${me.y}" r="7" fill="#0B5F73" stroke="#fff" stroke-width="3"/>
+        <text x="${me.x}" y="${me.y+26}" text-anchor="middle" font-size="11" font-weight="800" fill="#0A3442" font-family="Poppins, Arial">Você</text>
+      </svg><span class="maptag">Mapa ilustrativo</span>`;
+    $$('#heatBox .zone').forEach(g=>{ const f=()=>{ state.zone=g.dataset.z; renderHeat(); }; g.addEventListener('click',f); g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f(); } }); });
+    const sel=d.z.find(z=>z[0]===state.zone)||d.z[0], z=ZONES[sel[0]], v=LV[sel[1]];
+    const card=$('#zoneCard'); card.innerHTML='';
+    const t=document.createElement('div'); t.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:10px';
+    const nm=document.createElement('b'); nm.style.fontSize='15px'; nm.textContent=z.nome;
+    const ch=document.createElement('span'); ch.className='lvl '+sel[1]; ch.textContent=v.t; t.append(nm,ch);
+    const st=document.createElement('div'); st.className='zstats';
+    st.innerHTML=`<div><b>${sel[2]}</b><span>pedidos ${d.label}</span></div><div><b>${z.dist}</b><span>de você</span></div>`;
+    const tip=document.createElement('p'); tip.className='upd'; tip.style.margin='10px 0 0'; tip.textContent='Toque em outra área do mapa para comparar.';
+    card.append(t,st,tip);
+    const dt=new Date(Date.now()-3*60000);
+    $('#heatUpd').textContent='Atualizado às '+String(dt.getHours()).padStart(2,'0')+':'+String(dt.getMinutes()).padStart(2,'0')+'. Dados somados por área; áreas com menos de 5 pessoas não aparecem.';
+  }
+
+  /* ---------- R13 Perfil ---------- */
+  state.phone='81998761234'; state.pfoto=null; state.efoto=null;
+  function renderProfile(){
+    const s2=state.session||{name:'Marina Souza',email:'cliente@praia.com'};
+    $('#profName').textContent=s2.name; $('#profMail').textContent=s2.email;
+    const ps=$('#profStatus'); ps.className='pstatus'+(state.available?' on':''); ps.querySelector('span').textContent=state.available?'Disponível':'Indisponível';
+    const n=state.products.length; $('#mItens').textContent=n+(n===1?' item':' itens');
+    paintAvatar();
+    $('#fPerfil').hidden=true; $('#pMenu').hidden=false;
+  }
+  function paintAvatar(){
+    const s2=state.session||{name:'Marina Souza'};
+    [$('#avatar1'),$('#avatar2')].forEach(a=>{ a.innerHTML=''; if(state.pfoto){ const im=document.createElement('img'); im.src=state.pfoto; im.alt='Foto do perfil'; a.appendChild(im);} else a.textContent=initials(s2.name); });
+  }
+  $('#mEdit').onclick=()=>{
+    const s2=state.session||{name:'Marina Souza'};
+    $('#eNome').value=s2.name; $('#eTel').value=maskTel(state.phone); state.efoto=null;
+    $('#eThumb').innerHTML = state.pfoto ? '<img src="'+state.pfoto+'" alt="">' : $('#eThumb').innerHTML;
+    $('#fENome').classList.remove('err'); $('#fETel').classList.remove('err');
+    $('#fPerfil').hidden=false; $('#pMenu').hidden=true; $('#eNome').focus();
+  };
+  $('#eFoto').addEventListener('change',e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return; state.efoto=URL.createObjectURL(f); $('#eThumb').innerHTML=''; const im=document.createElement('img'); im.src=state.efoto; im.alt='Nova foto'; $('#eThumb').appendChild(im); });
+  $('#eCancel').onclick=()=>{ $('#fPerfil').hidden=true; $('#pMenu').hidden=false; };
+  $('#fPerfil').addEventListener('submit',e=>{
+    e.preventDefault();
+    const nome=$('#eNome').value.trim(), tel=$('#eTel').value;
+    let ok=err('fENome', nome.split(/\s+/).filter(Boolean).length<2);
+    ok=err('fETel', !validTel(tel)) && ok;
+    if(!ok) return;
+    const btn=$('#eSave'); busy(btn,true);
+    setTimeout(()=>{ busy(btn,false);
+      if(!state.session) ensureSession();
+      state.session.name=nome; state.phone=digits(tel); if(state.efoto) state.pfoto=state.efoto;
+      const u=state.users[state.session.email.toLowerCase()]; if(u){ u.name=nome; u.tel=state.phone; }
+      $('#helloName').textContent=nome.split(' ')[0];
+      renderProfile(); toast('Dados atualizados.');
+    },500);
+  });
+  $('#mTerms').onclick=()=>$('#ovTerms').classList.add('open');
+
+  const HOOKS={produtos:renderProducts, pedidos:renderOrders, local:renderLocal, chat:renderChat, mapa:renderHeat, perfil:renderProfile};
 
   /* ---------- painel ---------- */
   $('#openPanel').onclick=()=>$('#panel').classList.add('open');
@@ -666,7 +1133,7 @@ h2.h{font:700 25px/1.2 var(--display);margin:8px 0 6px;text-wrap:balance}
   };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeAll(); $('#panel').classList.remove('open'); } });
 
-  paintStatus();
+  paintStatus(); updBadge();
   render(location.hash.slice(1)||'r01');
 })();
 </script>
